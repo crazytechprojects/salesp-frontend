@@ -1,11 +1,11 @@
 const ENV_NAME = import.meta.env.VITE_ENV_NAME;
 
-let BACKEND_API_ENDPOINT = import.meta.env.VITE_BACKEND_API_ENDPOINT;
+const isLocalHost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
 
-if (!ENV_NAME || ENV_NAME === "local") {
-  BACKEND_API_ENDPOINT = "http://localhost:8000";
-} else if (ENV_NAME === "dev") {
-  BACKEND_API_ENDPOINT = "https://i5qx.us-east-2.awsapprunner.com";
-}
+const BACKEND_API_ENDPOINT =
+  import.meta.env.VITE_BACKEND_API_ENDPOINT ||
+  (isLocalHost
+    ? "http://localhost:8000"
+    : "https://salesp-backend-production.up.railway.app");
 
 export { BACKEND_API_ENDPOINT, ENV_NAME };
